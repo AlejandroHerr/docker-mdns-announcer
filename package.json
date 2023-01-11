@@ -1,0 +1,30 @@
+{
+  "name": "docker-mdns-announcer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:AlejandroHerr/docker-mdns-anouncer.git",
+  "author": "AlejandroHerr <ahernandezc@protonmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
+  },
+  "dependencies": {
+    "typescript": "^4.9.4"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
