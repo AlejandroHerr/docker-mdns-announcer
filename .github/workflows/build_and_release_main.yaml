@@ -78,10 +78,10 @@ jobs:
     steps:
       - name: Set releasetag
         id: releasetag
-        run: echo "{releasetag}={$(curl -s https://api.github.com/repos/AlejandroHerr/docker-mdns-announcer/tags | jq '.[0].name' | sed 's/\"//g')}" >> $GITHUB_OUTPUT
+        run: echo "releasetag=$(curl -s https://api.github.com/repos/AlejandroHerr/docker-mdns-announcer/tags | jq '.[0].name' | sed 's/\"//g')" >> $GITHUB_OUTPUT
       - name: Set releaseversion
         id: releaseversion
-        run: echo "{releaseversion}={$(curl -s https://api.github.com/repos/AlejandroHerr/docker-mdns-announcer/tags | jq '.[0].name' | sed 's/\"//g' | 's/\"//g')}" >> $GITHUB_OUTPUT
+        run: echo "releaseversion=$(curl -s https://api.github.com/repos/AlejandroHerr/docker-mdns-announcer/tags | jq '.[0].name' | sed 's/\"//g' | sed 's/\"//g')" >> $GITHUB_OUTPUT
       - name: tagcheckout
         uses: actions/checkout@v3
         with:
