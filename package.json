@@ -1,6 +1,6 @@
 {
   "name": "docker-mdns-announcer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": "git@github.com:AlejandroHerr/docker-mdns-anouncer.git",
   "author": "AlejandroHerr <ahernandezc@protonmail.com>",
   "license": "MIT",
