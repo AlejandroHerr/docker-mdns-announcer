@@ -81,7 +81,7 @@ jobs:
         run: echo "releasetag=$(curl -s https://api.github.com/repos/AlejandroHerr/docker-mdns-announcer/tags | jq '.[0].name' | sed 's/\"//g')" >> $GITHUB_OUTPUT
       - name: Set releaseversion
         id: releaseversion
-        run: echo "releaseversion=$(curl -s https://api.github.com/repos/AlejandroHerr/docker-mdns-announcer/tags | jq '.[0].name' | sed 's/\"//g' | sed 's/\"//g')" >> $GITHUB_OUTPUT
+        run: echo "releaseversion=$(curl -s https://api.github.com/repos/AlejandroHerr/docker-mdns-announcer/tags | jq '.[0].name' | sed 's/\"//g' | sed 's/v//g')" >> $GITHUB_OUTPUT
       - name: tagcheckout
         uses: actions/checkout@v3
         with:
@@ -101,8 +101,11 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest,enable=${{ true }}
+            type=semver,pattern={{version}},value=${{ steps.releasetag.outputs.releasetag }}
           labels: |
-            org.opencontainers.image.version=${{ steps.releaseversion.outputs.releaseversion }}
+            org.opencontainers.image.version=${{ steps.releasetag.outputs.releasetag }}
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
@@ -110,8 +113,5 @@ jobs:
           target: production
           platforms: linux/amd64,linux/arm64
           push: true
-          # tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.releaseversion.outputs.releaseversion }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
